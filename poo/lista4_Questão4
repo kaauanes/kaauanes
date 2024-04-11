@@ -1,0 +1,40 @@
+\: Escreva um método pesqbin(int val) que procura o valor val no vetor 
+usando pesquisa binária e retorna a posição em que ele foi encontrado, ou -1
+se não está no vetor.\
+
+#include <iostream>
+#include <vector>
+
+int pesqbin(const std::vector<int>& vetor, int val) {
+    int esquerda = 0;
+    int direita = vetor.size() - 1;
+
+    while (esquerda <= direita) {
+        int meio = esquerda + (direita - esquerda) / 2;
+
+        if (vetor[meio] == val) {
+            return meio; 
+        } else if (vetor[meio] < val) {
+            esquerda = meio + 1; 
+        } else {
+            direita = meio - 1; 
+        }
+    }
+
+    return -1; 
+}
+
+int main() {
+    std::vector<int> meuVetor = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+    int valorProcurado = 13;
+
+    int posicao = pesqbin(meuVetor, valorProcurado);
+
+    if (posicao != -1) {
+        std::cout << "Valor " << valorProcurado << " encontrado na posição " << posicao << std::endl;
+    } else {
+        std::cout << "Valor " << valorProcurado << " não está no vetor." << std::endl;
+    }
+
+    return 0;
+}
