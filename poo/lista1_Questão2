@@ -1,0 +1,78 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+class Aluno {
+private:
+   nome;
+   matricula;
+   curso;
+
+public:
+    Aluno(const string& nome, const string& matricula, const string& curso)
+        : nome(nome), matricula(matricula), curso(curso) {}
+
+    void cadastrar() {
+    cout << "Digite o nome do aluno: ";
+    cin >> nome;
+    cout << "Digite a matrícula do aluno: ";
+    cin >> matricula;
+    cout << "Digite o curso do aluno: ";
+    cin >> curso;
+    }
+
+    void consultar() const {
+    cout << "Nome: " << nome << std::endl;
+    cout << "Matrícula: " << matricula << std::endl;
+    cout << "Curso: " << curso << std::endl;
+    }
+};
+
+int main() {
+    vector<Aluno> alunos; 
+
+    
+    int opcao;
+    do {
+       cout << "\nMenu:\n1. Cadastrar aluno\n2. Consultar aluno\n3. Sair\n";
+       cout << "Escolha uma opção: ";
+       cin >> opcao;
+
+        switch (opcao) {
+            case 1: {
+       string nome, matricula, curso;
+       cout << "Cadastro de Aluno:\n";
+       cout << "Digite o nome do aluno: ";
+       cin >> nome;
+       cout << "Digite a matrícula do aluno: ";
+       cin >> matricula;
+       cout << "Digite o curso do aluno: ";
+       cin >> curso;
+         alunos.emplace_back(nome, matricula, curso);
+            break;
+            }
+            case 2: {
+               string matricula;
+       cout << "Consulta de Aluno:\n";
+       cout << "Digite a matrícula do aluno: ";
+       cin >> matricula;
+            for (const auto& aluno : alunos) {
+                if (aluno.getMatricula() == matricula) {
+                    aluno.consultar();
+                    break;
+                  }
+                }
+                break;
+            }
+            case 3:
+            cout << "Encerrando o programa.\n";
+                break;
+            default:
+            cout << "Opção inválida. Tente novamente.\n";
+        }
+    } while (opcao != 3);
+
+    return 0;
+}
+
+
