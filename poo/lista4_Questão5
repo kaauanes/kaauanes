@@ -1,0 +1,35 @@
+\Questão 5: Escreva um método pesqsent(int val) que procura o valor val no
+vetor usando pesquisa com sentinela e retorna a posição em que ele foi 
+encontrado, ou -1 se não está no vetor\
+
+#include <iostream>
+#include <vector>
+
+int pesqsent(const std::vector<int>& vetor, int val) {
+    
+    
+    int i = 0;
+    while (vetor[i] != val) {
+        i++;
+    }
+
+    if (i < vetor.size() - 1) {
+        return i; 
+    } else {
+        return -1; 
+    }
+}
+
+int main() {
+    std::vector<int> meuVetor = {50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
+    int valorProcurado = 150;
+
+    int posicao = pesqsent(meuVetor, valorProcurado);
+    if (posicao != -1) {
+        std::cout << "O valor " << valorProcurado << " foi encontrado na posição " << posicao << "." << std::endl;
+    } else {
+        std::cout << "O valor " << valorProcurado << " não está no vetor." << std::endl;
+    }
+
+    return 0;
+}
