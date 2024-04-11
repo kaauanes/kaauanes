@@ -1,0 +1,30 @@
+\Questão 3: Escreva uma função pesqseq(int val) que procura o valor val no vetor 
+usando pesquisa sequencial e retorna a posição em que ele foi encontrado, ou 
+-1 se não está no vetor.\
+
+#include <iostream>
+#include <vector>
+
+int pesqseq(const std::vector<int>& vetor, int val) {
+    for (size_t i = 0; i < vetor.size(); ++i) {
+        if (vetor[i] == val) {
+            return static_cast<int>(i); 
+        }
+    }
+    return -1; 
+}
+
+int main() {
+    std::vector<int> meuVetor = {10, 20, 30, 40, 50}; 
+
+    int valorProcurado = 30;
+    int posicao = pesqseq(meuVetor, valorProcurado);
+
+    if (posicao != -1) {
+        std::cout << "O valor " << valorProcurado << " foi encontrado na posição " << posicao << "." << std::endl;
+    } else {
+        std::cout << "O valor " << valorProcurado << " não está no vetor." << std::endl;
+    }
+
+    return 0;
+}
