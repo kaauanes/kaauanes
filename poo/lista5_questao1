@@ -1,0 +1,43 @@
+/******************************************************************************
+Questão 1: Faça um programa que leia n nomes inserindo-os em uma lista 
+de forma ordenada utilizando a ideia do algoritmo Insertion Sort. No final, 
+o programa deve mostrar todos os nomes ordenados alfabeticamente.
+*******************************************************************************/
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    int n;
+    std::cout << "Digite a quantidade de nomes:";
+    std::cin >> n;
+
+    std::vector<std::string> nomes;
+    std::string nome;
+
+    for (int i = 0; i < n; ++i) {
+        std::cout << "Digite o nome " << i + 1 << ": ";
+        std::cin >> nome;
+        nomes.push_back(nome);
+    }
+
+    for (int i = 1; i < n; ++i) {
+        std::string chave = nomes[i];
+        int j = i - 1;
+
+        while (j >= 0 && nomes[j] > chave) {
+            nomes[j + 1] = nomes[j];
+            j--;
+        }
+
+        nomes[j + 1] = chave;
+    }
+
+    std::cout << "Nomes ordenados alfabeticamente:\n";
+    for (const auto& nome : nomes) {
+        std::cout << nome << "\n";
+    }
+
+    return 0;
+}
+
