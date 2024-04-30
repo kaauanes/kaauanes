@@ -1,8 +1,185 @@
 ***********************************************************************************************************************
-Questão 1:Crie uma classe Televisao e uma classe ControleRemoto que pode controlar o volume e trocar os canais da televisão. Nesse programa orientado a objetos, crie métodos que permitam:
+Questão 1:Crie uma classe Televisao e uma classe ControleRemoto que pode controlar o volume e trocar os canais da televisão. 
+Nesse programa orientado a objetos, crie métodos que permitam:
 1.aumentar ou diminuir a potência do volume de som em uma unidade de cada vez;
 2.aumentar e diminuir o número do canal em uma unidade;
 3.trocar para um canal indicado;
 4.consultar o valor do volume de som;
 5.consultar o canal selecionado;
 ***********************************************************************************************************************
+#include <iostream>
+
+class Televisao {
+private:
+    int canal;
+    int volume;
+
+public:
+    Televisao() : canal(1), volume(10) {}
+
+    void aumentarVolume() {
+        if (volume < 100) {
+            volume++;
+        }
+    }
+
+    void diminuirVolume() {
+        if (volume > 0) {
+            volume--;
+        }
+    }
+
+    void aumentarCanal() {
+        canal++;
+    }
+
+    void diminuirCanal() {
+        canal--;
+    }
+
+    void trocarCanal(int novoCanal) {
+        canal = novoCanal;
+    }
+
+    int getVolume() const {
+        return volume;
+    }
+
+    int getCanal() const {
+        return canal;
+    }
+};
+
+int main() {
+    Televisao minhaTV;
+
+    minhaTV.aumentarVolume();
+    minhaTV.aumentarCanal();
+    minhaTV.trocarCanal(5);
+
+    std::cout << "Volume: " << minhaTV.getVolume() << std::endl;
+    std::cout << "Canal: " << minhaTV.getCanal() << std::endl;
+
+    return 0;
+
+}
+
+**********************************************************************************************************************
+Questão 2:Resolva o que se pede em cada item:
+1.Crie um vetor de 'char' com 10 posições e peça ao usuário para preencher todo o vetor. 
+2.Crie uma função que coloque os elementos do vetor criado acima em ordem crescente. 
+3.Faça a pesquisa de um valor 'x', valor inserido pelo usuário, implementando uma função que utiliza pesquisa sequencial. 
+4.Imprima na tela em qual posição o valor 'x' foi encontrado, ou -1 caso não seja encontrado. 
+5.Além disso, imprima na tela quantas pesquisas foram feitas. 
+**********************************************************************************************************************
+#include <iostream>
+
+void preencherVetor(char vetor[], int tamanho) {
+    std::cout << "Digite " << tamanho << " caracteres:\n";
+    for (int i = 0; i < tamanho; ++i) {
+        std::cin >> vetor[i];
+    }
+}
+
+void ordenarVetor(char vetor[], int tamanho) {
+    for (int i = 0; i < tamanho - 1; ++i) {
+        for (int j = i + 1; j < tamanho; ++j) {
+            if (vetor[i] > vetor[j]) {
+                char temp = vetor[i];
+                vetor[i] = vetor[j];
+                vetor[j] = temp;
+            }
+        }
+    }
+}
+
+int pesquisaSequencial(char vetor[], int tamanho, char x, int& pesquisas) {
+    for (int i = 0; i < tamanho; ++i) {
+        pesquisas++;
+        if (vetor[i] == x) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    const int tamanho = 10;
+    char vetor[tamanho];
+    preencherVetor(vetor, tamanho);
+    
+    char x;
+    std::cout << "Digite o valor a ser pesquisado: ";
+    std::cin >> x;
+    
+    ordenarVetor(vetor, tamanho);
+    
+    int pesquisas = 0;
+    int posicao = pesquisaSequencial(vetor, tamanho, x, pesquisas);
+    
+    if (posicao != -1) {
+        std::cout << "O valor '" << x << "' foi encontrado na posição " << posicao << ".\n";
+    } else {
+        std::cout << "O valor '" << x << "' não foi encontrado.\n";
+    }
+    
+    std::cout << "Foram feitas " << pesquisas << " pesquisas.\n";
+    
+    return 0;
+}
+
+**********************************************************************************************************************
+Questão 3: Crie um programa que atenda aos seguintes requisitos:
+1. Peça ao usuário fornecer o tamanho de um vetor a ser ordenado; 
+2. Crie um vetor de inteiros de forma aleatória de acordo com o parâmetro de entrada; 
+3. Exiba o vetor que foi criado no passo anterior na tela do computador; 
+4. Ordene o vetor de forma decrescente usando o algoritmo ordenação por inserção. 
+5. Exiba o vetor ordenado ao final do programa na tela do computador; 
+**********************************************************************************************************************
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+
+using namespace std;
+
+void exibirVetor(const vector<int>& vetor) {
+    for (int elemento : vetor) {
+        cout << elemento << " ";
+    }
+    cout << endl;
+}
+
+void ordenarPorInsercao(vector<int>& vetor) {
+    int tamanho = vetor.size();
+    for (int i = 1; i < tamanho; ++i) {
+        int chave = vetor[i];
+        int j = i - 1;
+        while (j >= 0 && vetor[j] < chave) {
+            vetor[j + 1] = vetor[j];
+            j--;
+        }
+        vetor[j + 1] = chave;
+    }
+}
+
+int main() {
+    int tamanho;
+    cout << "Digite o tamanho do vetor: ";
+    cin >> tamanho;
+
+
+    vector<int> vetor(tamanho);
+    for (int i = 0; i < tamanho; ++i) {
+        vetor[i] = rand() % 100; 
+    }
+
+    cout << "Vetor gerado: ";
+    exibirVetor(vetor);
+
+    ordenarPorInsercao(vetor);
+
+    cout << "Vetor ordenado (decrescente): ";
+    exibirVetor(vetor);
+
+    return 0;
+}
